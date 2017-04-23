@@ -63,6 +63,7 @@ public class AlarmSet {
         for(String string : savedString) {
             //TODO parse from saved string alarmSet.add(new Alarm(string));
         }
+        SystemBootReceiver.enable(context);
     }
 
     public void save(Context context) {
