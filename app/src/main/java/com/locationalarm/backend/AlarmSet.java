@@ -10,7 +10,9 @@ import com.locationalarm.R;
 import com.locationalarm.backend.alarm.Alarm;
 import com.locationalarm.backend.intent.AlarmManagerCancelAllIntent;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,19 +21,22 @@ import java.util.Set;
 
 //TODO call this on device startup https://developer.android.com/training/scheduling/alarms.html
 public class AlarmSet {
-    private final Set<Alarm> alarmSet;
+    private final List<Alarm> alarms;
+    private final Set<AlarmSetListener> listeners;
 
     /*
     functionality
      */
     public void addAlarm(Alarm alarm, Context context) {
-        alarmSet.add(alarm);
+        alarms.add(alarm);
         synchronize(context);
+        changed();
     }
 
     public void removeAlarm(Alarm alarm, Context context) {
-        alarmSet.remove(alarm);
+        alarms.remove(alarm);
         synchronize(context);
+        changed();
     }
 
     public void synchronize(Context context) {
@@ -43,8 +48,22 @@ public class AlarmSet {
                         new AlarmManagerCancelAllIntent(),
                         PendingIntent.FLAG_ONE_SHOT
                 ));
-        for(Alarm alarm : alarmSet) {
+        for(Alarm alarm : alarms) {
             alarm.setAlarms(context);
+        }
+        changed();
+    }
+
+    /*
+    LISTENER STUFF
+     */
+    public void addListener(AlarmSetListener listener) {
+        listeners.add(listener);
+    }
+
+    private void changed() {
+        for(AlarmSetListener listener: listeners) {
+            listener.onChange();
         }
     }
 
@@ -59,16 +78,17 @@ public class AlarmSet {
                 resources.getString(R.string.alarm_storage_alarms),
                 new HashSet<String>()
         );
-        this.alarmSet = new HashSet<Alarm>();
+        this.alarms = new ArrayList<Alarm>();
         for(String string : savedString) {
-            //TODO parse from saved string alarmSet.add(new Alarm(string));
+            //TODO parse from saved string alarms.add(new Alarm(string));
         }
         SystemBootReceiver.enable(context);
+        this.listeners = new HashSet<AlarmSetListener>();
     }
 
     public void save(Context context) {
         Set<String> alarms = new HashSet<String>();
-        for(Alarm alarm: alarmSet) {
+        for(Alarm alarm: this.alarms) {
             alarms.add(alarm.getHashString());
         }
         SharedPreferences sharedPreferences = getSharedPreferences(context);
@@ -87,5 +107,13 @@ public class AlarmSet {
                 context.getResources().getString(R.string.alarm_storage),
                 Context.MODE_PRIVATE
         );
+    }
+
+    public List<Alarm> getAlarms() {
+        return alarms;
+    }
+
+    public Alarm getAlarm(int i) {
+        return alarms.get(i);
     }
 }

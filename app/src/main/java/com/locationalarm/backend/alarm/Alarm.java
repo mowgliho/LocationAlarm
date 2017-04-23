@@ -66,4 +66,9 @@ public abstract class Alarm {
     }
 
     public abstract void setAlarms(Context context);
+
+    @Override
+    public String toString() {
+        return displayName;
+    }
 }
