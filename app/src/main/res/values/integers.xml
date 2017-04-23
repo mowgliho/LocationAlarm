@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="cancel_intent_request">0</integer>
+    <integer name="alarm_once_request">0</integer>
+    <integer name="alarm_manager_set_request">0</integer>
 </resources>

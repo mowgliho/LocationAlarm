@@ -7,7 +7,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 
 import com.locationalarm.R;
-import com.locationalarm.backend.Intent.AlarmManagerCancelAllIntent;
+import com.locationalarm.backend.alarm.Alarm;
+import com.locationalarm.backend.intent.AlarmManagerCancelAllIntent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class AlarmSet {
                         PendingIntent.FLAG_ONE_SHOT
                 ));
         for(Alarm alarm : alarmSet) {
-            //TODO manager.set();
+            alarm.setAlarms(context);
         }
     }
 
@@ -60,7 +61,7 @@ public class AlarmSet {
         );
         this.alarmSet = new HashSet<Alarm>();
         for(String string : savedString) {
-            alarmSet.add(new Alarm(string));
+            //TODO parse from saved string alarmSet.add(new Alarm(string));
         }
     }
 

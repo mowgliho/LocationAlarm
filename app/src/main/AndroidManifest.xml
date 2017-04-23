@@ -2,6 +2,9 @@
 
     package="com.locationalarm">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <receiver android:name=".backend.intent.AlarmBroadcastReceiver" ></receiver>
+        <receiver android:name=".backend.intent.SchedulingAlarmBroadcastReceiver" ></receiver>
     </application>
 
 </manifest>

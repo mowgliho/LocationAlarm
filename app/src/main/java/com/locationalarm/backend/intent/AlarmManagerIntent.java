@@ -1,8 +1,8 @@
-package com.locationalarm.backend.Intent;
+package com.locationalarm.backend.intent;
 
 import android.content.Intent;
 
-import com.locationalarm.backend.Alarm;
+import com.locationalarm.backend.alarm.Alarm;
 
 /**
  * Created by Brent on 4/23/2017.

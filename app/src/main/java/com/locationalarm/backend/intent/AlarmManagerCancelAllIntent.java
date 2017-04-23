@@ -1,12 +1,6 @@
-package com.locationalarm.backend.Intent;
+package com.locationalarm.backend.intent;
 
-import android.app.PendingIntent;
 import android.content.Intent;
-
-import com.locationalarm.backend.Alarm;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Brent on 4/23/2017.
