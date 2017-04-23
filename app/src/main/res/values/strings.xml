@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LocationAlarm</string>
+    <string name="alarm_storage">alarm_storage</string>
+    <string name="alarm_storage_alarms">alarm_storage_num_alarms</string>
 </resources>
