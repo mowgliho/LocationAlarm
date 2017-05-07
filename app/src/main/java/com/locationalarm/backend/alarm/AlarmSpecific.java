@@ -2,6 +2,8 @@ package com.locationalarm.backend.alarm;
 
 import android.app.AlarmManager;
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Brent on 4/23/2017.
@@ -21,6 +23,17 @@ public class AlarmSpecific extends Alarm {
         this.startTimes = startTimes;
     }
 
+    private AlarmSpecific(AlarmStub stub, long[] startTimes) {
+        this(
+                startTimes,
+                stub.getDisplayName(),
+                stub.getTriggerDistance(),
+                stub.getUpdateInterval(),
+                stub.getLongitude(),stub.getLatitude(),
+                stub.getProviders()
+        );
+    }
+
     @Override
     public void setAlarms(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -29,4 +42,31 @@ public class AlarmSpecific extends Alarm {
         }
 
     }
+
+    /*
+parcelable
+ */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        writeToParcelStub(dest);
+        dest.writeInt(startTimes.length);
+        dest.writeLongArray(startTimes);
+    }
+
+    public static final Parcelable.Creator<AlarmSpecific> CREATOR
+            = new Parcelable.Creator<AlarmSpecific>() {
+        @Override
+        public AlarmSpecific createFromParcel(Parcel in) {
+            AlarmStub alarmStub = Alarm.getAlarmStub(in);
+            long[] startTimes = new long[in.readInt()];
+            in.readLongArray(startTimes);
+            return new AlarmSpecific(alarmStub,startTimes);
+        }
+
+        // We just need to copy this and change the type to match our class.
+        @Override
+        public AlarmSpecific[] newArray(int size) {
+            return new AlarmSpecific[size];
+        }
+    };
 }
