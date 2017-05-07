@@ -3,4 +3,15 @@
     <string name="alarm_storage">alarm_storage</string>
     <string name="alarm_storage_alarms">alarm_storage_num_alarms</string>
     <string name="add_alarm">Add Alarm</string>
+    <string name="Set">Set</string>
+    <string name="gps">GPS</string>
+    <string name="wifi">Wifi</string>
+    <string name="gps_and_wifi">GPS and Wifi</string>
+    <string name="display_name">Alarm Name</string>
+    <string name="trigger_distance">Trigger Distance</string>
+    <string name="update_interval">Update Interval</string>
+    <string name="search_method">Search Method</string>
+    <string name="confirm">Confirm</string>
+    <string name="location_text">Location</string>
+    <string name="when">When</string>
 </resources>

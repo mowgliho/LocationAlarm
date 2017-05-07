@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.locationalarm.backend.alarm.builder.AlarmTypeBuilder;
+
 /**
  * Created by Brent on 4/23/2017.
  */
@@ -69,4 +71,9 @@ parcelable
             return new AlarmSpecific[size];
         }
     };
+
+    @Override
+    public AlarmTypeBuilder getAlarmTypeBuilder() {
+        return new AlarmTypeBuilder.Specific(startTimes);
+    }
 }

@@ -5,10 +5,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.locationalarm.R;
 import com.locationalarm.backend.alarm.Alarm;
 import com.locationalarm.backend.intent.AlarmManagerCancelAllIntent;
+import com.locationalarm.util.Constants;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -30,16 +32,21 @@ public class AlarmSet {
     public void addAlarm(Alarm alarm, Context context) {
         alarms.add(alarm);
         synchronize(context);
-        changed();
+    }
+
+    public void editAlarm(Alarm oldAlarm, Alarm newAlarm, Context context) {
+        alarms.remove(oldAlarm);
+        alarms.add(newAlarm);
+        synchronize(context);
     }
 
     public void removeAlarm(Alarm alarm, Context context) {
         alarms.remove(alarm);
         synchronize(context);
-        changed();
     }
 
     public void synchronize(Context context) {
+        Log.i(Constants.LOCATION_ALARM,"Synchronizing " + alarms.size() + " alarms");
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         manager.cancel(
                 PendingIntent.getActivity(
@@ -84,6 +91,7 @@ public class AlarmSet {
         }
         SystemBootReceiver.enable(context);
         this.listeners = new HashSet<AlarmSetListener>();
+        Log.i(Constants.LOCATION_ALARM,"Initialized AlarmSet with " + alarms.size() + " alarms");
     }
 
     public void save(Context context) {

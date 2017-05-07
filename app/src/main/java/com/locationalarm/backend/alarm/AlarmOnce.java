@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.locationalarm.R;
+import com.locationalarm.backend.alarm.builder.AlarmTypeBuilder;
 import com.locationalarm.backend.intent.AlarmIntent;
 import com.locationalarm.backend.intent.SchedulingAlarmBroadcastReceiver;
 
@@ -43,6 +44,11 @@ public class AlarmOnce extends Alarm {
     public void setAlarms(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP,startTime,getPendingIntent(context));
+    }
+
+    @Override
+    public AlarmTypeBuilder getAlarmTypeBuilder() {
+        return new AlarmTypeBuilder.Once(startTime);
     }
 
     /*

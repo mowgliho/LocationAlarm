@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.locationalarm.R;
+import com.locationalarm.backend.alarm.builder.AlarmTypeBuilder;
 import com.locationalarm.backend.intent.AlarmIntent;
 import com.locationalarm.backend.intent.SchedulingAlarmBroadcastReceiver;
 import com.locationalarm.util.HashCodeBuilder;
@@ -134,6 +135,8 @@ public abstract class Alarm implements Parcelable {
                 providers
         );
     }
+
+    public abstract AlarmTypeBuilder getAlarmTypeBuilder();
 
     protected static final class AlarmStub {
         private final String displayName;
