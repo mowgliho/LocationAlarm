@@ -1,7 +1,9 @@
 package com.locationalarm.frontend;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -12,6 +14,8 @@ import com.locationalarm.backend.alarm.builder.AlarmBuilder;
 import com.locationalarm.util.Constants;
 
 public class NewEditAlarmActivity extends AppCompatActivity {
+    private static final int REQUESTCODE = 0;
+
     private AlarmBuilder alarmBuilder;
     private EditText displayNameEdit;
     private TextView locationView;
@@ -45,5 +49,13 @@ public class NewEditAlarmActivity extends AppCompatActivity {
         whenView.setText("TODO");//TODO
         triggerDistanceEdit.setText(alarmBuilder.getTriggerDistance() + "");
         updateIntervalEdit.setText(alarmBuilder.getUpdateInterval() + "");
+    }
+
+    public void setLocation(View view) {
+        Intent intent = new Intent(this, LocationSelectionActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.ALARMBUILDER, alarmBuilder);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, REQUESTCODE);
     }
 }

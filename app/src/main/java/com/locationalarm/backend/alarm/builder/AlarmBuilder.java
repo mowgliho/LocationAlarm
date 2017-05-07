@@ -41,7 +41,7 @@ public class AlarmBuilder implements Parcelable{
     }
 
     public static AlarmBuilder GETDEFAULT() {
-        return new AlarmBuilder(null, -1, -1,0, 0, null, null);
+        return new AlarmBuilder(null, -1, -1,0, 0, new String[]{}, null);
     }
 
     //create from alarm
@@ -113,6 +113,8 @@ public class AlarmBuilder implements Parcelable{
 
     public static final Parcelable.Creator<AlarmBuilder> CREATOR
             = new Parcelable.Creator<AlarmBuilder>() {
+        private double longitude;
+
         @Override
         public AlarmBuilder createFromParcel(Parcel in) {
             String displayName = in.readString();
@@ -133,4 +135,11 @@ public class AlarmBuilder implements Parcelable{
         }
     };
 
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 }

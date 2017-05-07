@@ -11,4 +11,6 @@ public class Constants {
 
     public static final int ALARMTYPEBUILDERFLAG = 0;
     public static final String LOCATION_ALARM = "LocationAlarm";
+    public static final String ALARMBUILDER = "AlarmBuilder";
+    public static final String LOCATION_ALARM_SELECTION = "LocationAlarmSelection";
 }
