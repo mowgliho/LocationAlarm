@@ -17,23 +17,38 @@ public class LocationSelectionActivity extends AppCompatActivity {
     private static final int REQUESTCODE = 0;
 
     private AlarmBuilder alarmBuilder;
-    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_selection);
         this.alarmBuilder = this.getIntent().getExtras().getParcelable(Constants.ALARMBUILDER);
-        textView = (TextView) findViewById(R.id.locationSelectionText);
         setText();
     }
 
     private void setText() {
-        textView.setText("Lat: " + alarmBuilder.getLatitude() + " Long: " + alarmBuilder.getLongitude());
+        TextView textView = (TextView) findViewById(R.id.locationSelectionText);
+        StringBuilder sb = new StringBuilder("Lat: ");
+        sb.append(alarmBuilder.getLatitude());
+        sb.append(" Long: ");
+        sb.append(alarmBuilder.getLongitude());
+        if(alarmBuilder.getLocationText() != null) {
+            sb.append(" ");
+            sb.append(alarmBuilder.getLocationText());
+        }
+        textView.setText(sb.toString());
     }
 
     public void setUsingCoordinates(View v) {
         Intent intent = new Intent(this, LocationCoordinatesActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.ALARMBUILDER, alarmBuilder);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, REQUESTCODE);
+    }
+
+    public void setUsingMaps(View v) {
+        Intent intent = new Intent(this, LocationMapsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(Constants.ALARMBUILDER, alarmBuilder);
         intent.putExtras(bundle);

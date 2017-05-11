@@ -24,8 +24,8 @@ public class AlarmOnce extends Alarm {
             double triggerDistance,
             long updateInterval,
             double longitude, double latitude,
-            String[] providers) {
-        super(displayName,triggerDistance,updateInterval,longitude,latitude, providers);
+            String[] providers, String locationText) {
+        super(displayName,triggerDistance,updateInterval,longitude,latitude, providers, locationText);
         this.startTime = startTime;
     }
 
@@ -36,7 +36,8 @@ public class AlarmOnce extends Alarm {
                 stub.getTriggerDistance(),
                 stub.getUpdateInterval(),
                 stub.getLongitude(),stub.getLatitude(),
-                stub.getProviders()
+                stub.getProviders(),
+                stub.getLocationText()
         );
     }
 

@@ -32,7 +32,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".frontend.NewEditAlarmActivity"></activity>
+        <activity android:name=".frontend.NewEditAlarmActivity" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".frontend.LocationMapsActivity"
+            android:label="@string/title_activity_location_maps" />
+        <activity android:name=".frontend.LocationSelectionActivity" />
+        <activity android:name=".frontend.LocationCoordinatesActivity"></activity>
     </application>
 
 </manifest>

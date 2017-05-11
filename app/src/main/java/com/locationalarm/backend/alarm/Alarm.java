@@ -23,15 +23,17 @@ public abstract class Alarm implements Parcelable {
     private final long updateInterval;
     private final double longitude, latitude;
     private final String[] providers;
+    private String locationText;
 
 
-    protected Alarm(String displayName, double triggerDistance, long updateInterval, double longitude, double latitude, String[] providers) {
+    protected Alarm(String displayName, double triggerDistance, long updateInterval, double longitude, double latitude, String[] providers, String locationText) {
         this.displayName = displayName;
         this.triggerDistance = triggerDistance;
         this.updateInterval = updateInterval;
         this.longitude = longitude;
         this.latitude = latitude;
         this.providers = providers;
+        this.locationText = locationText;
     }
 
     public String getHashString() {
@@ -101,6 +103,7 @@ public abstract class Alarm implements Parcelable {
         for(String string : providers) {
             hashCodeBuilder.add(string);
         }
+        hashCodeBuilder.add(locationText);
         return hashCodeBuilder.hashCode();
     }
 
@@ -121,6 +124,7 @@ public abstract class Alarm implements Parcelable {
         dest.writeLong(updateInterval);
         dest.writeDouble(longitude);
         dest.writeDouble(latitude);
+        dest.writeString(locationText);
     }
 
     protected static AlarmStub getAlarmStub(Parcel in) {
@@ -132,11 +136,16 @@ public abstract class Alarm implements Parcelable {
                 in.readLong(),
                 in.readDouble(),
                 in.readDouble(),
-                providers
+                providers,
+                in.readString()
         );
     }
 
     public abstract AlarmTypeBuilder getAlarmTypeBuilder();
+
+    public String getLocationText() {
+        return locationText;
+    }
 
     protected static final class AlarmStub {
         private final String displayName;
@@ -144,15 +153,17 @@ public abstract class Alarm implements Parcelable {
         private final long updateInterval;
         private final double longitude, latitude;
         private final String[] providers;
+        private final String locationString;
 
 
-        private AlarmStub(String displayName, double triggerDistance, long updateInterval, double longitude, double latitude, String[] providers) {
+        private AlarmStub(String displayName, double triggerDistance, long updateInterval, double longitude, double latitude, String[] providers, String locationString) {
             this.displayName = displayName;
             this.triggerDistance = triggerDistance;
             this.updateInterval = updateInterval;
             this.longitude = longitude;
             this.latitude = latitude;
             this.providers = providers;
+            this.locationString = locationString;
         }
 
         public String getDisplayName() {
@@ -177,6 +188,10 @@ public abstract class Alarm implements Parcelable {
 
         public String[] getProviders() {
             return providers;
+        }
+
+        public String getLocationText() {
+            return locationString;
         }
     }
 

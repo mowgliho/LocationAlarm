@@ -31,7 +31,8 @@ public interface AlarmTypeBuilder extends Parcelable {
                     alarmBuilder.getUpdateInterval(),
                     alarmBuilder.getLongitude(),
                     alarmBuilder.getLatitude(),
-                    alarmBuilder.getProviders()
+                    alarmBuilder.getProviders(),
+                    alarmBuilder.getLocationText()
             );
         }
 
@@ -82,7 +83,8 @@ public interface AlarmTypeBuilder extends Parcelable {
                     alarmBuilder.getLongitude(),
                     alarmBuilder.getLatitude(),
                     repeatInterval,
-                    alarmBuilder.getProviders()
+                    alarmBuilder.getProviders(),
+                    alarmBuilder.getLocationText()
             );
         }
 
@@ -133,7 +135,8 @@ public interface AlarmTypeBuilder extends Parcelable {
                     alarmBuilder.getUpdateInterval(),
                     alarmBuilder.getLongitude(),
                     alarmBuilder.getLatitude(),
-                    alarmBuilder.getProviders()
+                    alarmBuilder.getProviders(),
+                    alarmBuilder.getLocationText()
             );
         }
 

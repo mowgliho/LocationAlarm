@@ -18,10 +18,13 @@ public class AlarmBuilder implements Parcelable{
     private double triggerDistance;
     private long updateInterval;
     private double longitude, latitude;
+    private String locationText;
     private String[] providers;
     private AlarmTypeBuilder alarmTypeBuilder;
 
-    public AlarmBuilder(String displayName, double triggerDistance, long updateInterval, double longitude, double latitude, String[] providers, AlarmTypeBuilder alarmTypeBuilder) {
+    public AlarmBuilder(String displayName, double triggerDistance, long updateInterval,
+                        double longitude, double latitude, String[] providers,
+                        AlarmTypeBuilder alarmTypeBuilder, String locationText) {
         this.displayName = displayName;
         this.triggerDistance = triggerDistance;
         this.updateInterval = updateInterval;
@@ -29,6 +32,7 @@ public class AlarmBuilder implements Parcelable{
         this.latitude = latitude;
         this.providers = providers;
         this.alarmTypeBuilder = alarmTypeBuilder;
+        this.locationText = locationText;
     }
 
     public boolean valid() {
@@ -41,7 +45,7 @@ public class AlarmBuilder implements Parcelable{
     }
 
     public static AlarmBuilder GETDEFAULT() {
-        return new AlarmBuilder(null, -1, -1,0, 0, new String[]{}, null);
+        return new AlarmBuilder(null, -1, -1,0, 0, new String[]{}, null, null);
     }
 
     //create from alarm
@@ -51,6 +55,7 @@ public class AlarmBuilder implements Parcelable{
         this.updateInterval = alarm.getUpdateInterval();
         this.longitude = alarm.getLongitude();
         this.latitude = alarm.getLatitude();
+        this.locationText = alarm.getLocationText();
         this.providers = alarm.getProviders();
         this.alarmTypeBuilder = alarm.getAlarmTypeBuilder();
     }
@@ -108,6 +113,7 @@ public class AlarmBuilder implements Parcelable{
         dest.writeDouble(latitude);
         dest.writeInt(providers.length);
         dest.writeStringArray(providers);
+        dest.writeString(locationText);
         dest.writeParcelable(alarmTypeBuilder, Constants.ALARMTYPEBUILDERFLAG);
     }
 
@@ -124,8 +130,9 @@ public class AlarmBuilder implements Parcelable{
             double latitude = in.readDouble();
             String[] providers = new String[in.readInt()];
             in.readStringArray(providers);
+            String locationText = in.readString();
             AlarmTypeBuilder alarmTypeBuilder = in.readParcelable(AlarmTypeBuilder.class.getClassLoader());
-            return new AlarmBuilder(displayName, triggerDistance, updateInterval, longitude, latitude, providers, alarmTypeBuilder);
+            return new AlarmBuilder(displayName, triggerDistance, updateInterval, longitude, latitude, providers, alarmTypeBuilder, locationText);
         }
 
         // We just need to copy this and change the type to match our class.
@@ -141,5 +148,13 @@ public class AlarmBuilder implements Parcelable{
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public String getLocationText() {
+        return locationText;
+    }
+
+    public void setLocationText(String locationText) {
+        this.locationText = locationText;
     }
 }

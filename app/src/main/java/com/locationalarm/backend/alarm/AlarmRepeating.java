@@ -22,8 +22,9 @@ public class AlarmRepeating extends Alarm {
             long updateInterval,
             double longitude, double latitude,
             long repeatInterval,
-            String[] providers) {
-        super(displayName,triggerDistance,updateInterval,longitude,latitude, providers);
+            String[] providers,
+            String locationText) {
+        super(displayName,triggerDistance,updateInterval,longitude,latitude, providers,locationText);
         this.startTime = startTime;
         this.repeatInterval = repeatInterval;
     }
@@ -36,7 +37,8 @@ public class AlarmRepeating extends Alarm {
                 stub.getUpdateInterval(),
                 stub.getLongitude(),stub.getLatitude(),
                 repeatInterval,
-                stub.getProviders()
+                stub.getProviders(),
+                stub.getLocationText()
         );
     }
 
